@@ -1,0 +1,13 @@
+{% if token %}
+<table>
+    <tr>
+        <td>{{token.name}} ({{token.symbol}})</td>
+    </tr>
+    <tr>
+        <td>Total Supply</td>
+        <td>{{token.totalSupply / (10**token.decimals)}} {{token.symbol}}</td>
+    </tr>
+</table>
+{% else %}
+Token not found.
+{% endif %}

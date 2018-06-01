@@ -1,0 +1,22 @@
+
+<html>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <head>
+        <!--a { % block % } with text inside will show the text if the block is not used, otherwise it will overwrite the text and show whatever is in the block -->
+        <title>{% block title %}EMS Booking System{% endblock %}</title>
+        <style>{% block style %}{% endblock %}</style>
+    </head>
+    <body>
+        <ul id="topbar">
+            <a id="toplink" href="{{ url_for('index') }}">Home</a>
+            <a id="toplink" href="{{ url_for('about') }}">About</a>
+            <a id="toplink" href="{{ url_for('find_token') }}">Token Search</a>
+        </ul>
+    </body>
+
+    {% block body %} {% endblock %}
+    <footer>
+        <p style="font-size:10px; color:grey">A website by <a href="https://www.github.com/bowdens">@bowdens</a></p>
+    </footer>
+</html>
+

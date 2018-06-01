@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Token Finder
+{% endblock %}
+
+{% block body %}
+<h1>Token Finder</h1>
+<p><i>Use this tool to find a token and display its information</i></p>
+{% if error %}
+<p style="color:red">There was an error: {{error}}</p>
+{% endif %}
+<form method="POST">
+    <input type="text" name="address" placeholder="address" {% if address %}value="{{address}}"{% endif %}>
+    <input type="text" name="abi" placeholder="ABI" {% if abi %}value="{{abi}}"{% endif %}>
+    <input type="submit" name="submit" value="Find Token">
+</form>
+
+{% if token %}
+<br>
+{% include 'token_details.html' %}
+{% endif %}
+{% endblock %}

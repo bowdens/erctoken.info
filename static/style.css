@@ -1,0 +1,85 @@
+/* STYLE */
+
+/* fonts */
+body {
+    background: #D2E1EE;
+}
+
+/* appearance of links */
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* navigation bar */
+#topbar {
+    list-style-type : none;
+    margin: 0;
+    padding: 0;
+    background-color: #66FF99;
+    width: 100%;
+}
+#toplink {
+    text-decoration: none;
+    color: rgb(74, 74, 74);
+    font-size: 16px;
+    padding: 6px 16px;
+    display: inline-block;
+}
+#toptext {
+    text-decoration: none;
+    font-size: 16px;
+    padding: 6px 16px;
+    display: inline-block;
+}
+#toplink:hover {
+    background-color: #44DD77;
+}
+
+/* event list */
+#main {
+    list-style-type: none;
+    width: 100%;
+}
+td {
+    vertical-align: top;
+    width: 50%;
+}
+#event {
+    text-decoration: none;
+    display: block;
+    background-color: #ffffff;
+    margin-top: 4px;
+    overflow: auto;
+}
+li #details {
+    display: block;
+    color: black;
+}
+#event:hover {
+    background-color: #eeeeee;
+}
+.event_type {
+    width: 40%;
+    background-color: #ffffff;
+    padding: 6px 10px;
+}
+.datetime {
+    float: left;
+    padding: 10px;
+    background-color: #009dff;
+    margin: 20px 0px 20px 20px;
+    color: white;
+}
+.datetime2 {
+    float: left;
+    padding: 10px;
+    background-color: #ff5100;
+    margin: 20px 0px 20px 20px;
+    color: white;
+}
+.spec {
+    float: left;
+}
