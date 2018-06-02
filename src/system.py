@@ -19,6 +19,8 @@ class System():
         self.__tokens[token.address] = token
 
     def create_token(self, address, abi):
+        if address is None or address == "" or abi is None or abi == "":
+            raise ValueError("Address and abi must be specified to create token")
         token = None
         for connection in self.__connections:
             try:
@@ -33,6 +35,12 @@ class System():
     def get_token_by_address(self, address):
         return self.__tokens.get(address)
 
+    def token_exists(self, address):
+        return self.__tokens.get(address) is not None
+
+    def get_tokens(self):
+        return self.__tokens.values()
+
     def get_connections(self):
-        return self.__connections
+        return self.__connections.values()
 

@@ -5,9 +5,13 @@ ERCToken | {% if token %} {{token.name}} {% else %} Unknown Token {% endif %}
 {% endblock %}
 
 {% block body %}
-{% if token %}
+{% if error %}
+<p style="color:red">{{error}}</p>
+{% endif %}
+
+{% if showToken %}
 {% include 'token_details.html' %}
-{% else %}
-<p>Error: There was an internal error: Token not found</p>
+{% elif not error %}
+<p>Error: Unkown error: Couldn't find token</p>
 {% endif %}
 {% endblock %}

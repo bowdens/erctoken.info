@@ -7,16 +7,31 @@ Token Finder
 {% block body %}
 <h1>Token Finder</h1>
 <p><i>Use this tool to find a token and display its information</i></p>
-{% if error %}
-<p style="color:red">There was an error: {{error}}</p>
-{% endif %}
 <form method="POST">
-    <input type="text" name="address" placeholder="address" {% if address %}value="{{address}}"{% endif %}>
-    <input type="text" name="abi" placeholder="ABI" {% if abi %}value="{{abi}}"{% endif %}>
+    <table>
+        <tr>
+            <td>Address</td>
+            <td><input type="text" name="address" placeholder="address" pattern="0x[0-9a-fA-F]{40}" size=42 {% if address %}value="{{address}}"{% endif %}></td>
+        </tr>
+        <tr>
+            <td>ABI</td>
+            <td><textarea name="abi" placeholder="ABI" rows="10" cols="42"> {% if abi %}{{abi}}{% endif %}</textarea></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                {% if defaultABI %}
+                <button type="button" onclick="document.getElementsByName('abi')[0].value='{{defaultABI}}'">Use Default ABI</button>
+                {% endif %}
+            </td>
+    </table>
     <input type="submit" name="submit" value="Find Token">
 </form>
 
-{% if token %}
+{% if error %}
+<p style="color:red">There was an error: {{error}}</p>
+{% endif %}
+{% if showToken %}
 <br>
 {% include 'token_details.html' %}
 {% endif %}

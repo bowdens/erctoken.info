@@ -10,19 +10,26 @@ class Connection():
         return self.__w3
 
 class Contract():
-    def __init__(self, address=None, abi=None, connection=None):
+    def __init__(self, address=None, abi=None, source=None, connection=None):
         if not Web3.isAddress(address):
             raise ValueError("'{}' is not a valid address".format(address))
-        if address is None:
-            raise Exception("Address cannot be None")
-        if abi is None:
-            raise Exception("ABI cannot be None")
+        if source is None and abi is None:
+            raise Exception("Either source OR abi must not be none")
         if not isinstance(connection, Connection):
             raise TypeError("Connection was invalid")
 
         self.__connection = connection
-        self.__address = address
-        self.__abi = abi
+        self.__address = Web3.toChecksumAddress(address)
+        self.__source = None
+        self.__code = None
+        self.__abi = None
+        if source is not None:
+            self.source = source
+            # todo: self.source also sets self.__code. Change this
+            self.__abi = self.__code["abi"]
+        else:
+            assert(abi is not None)
+            self.__abi = abi
         self.__contract = self.__connection.w3.eth.contract(address=self.__address, abi=self.__abi)
 
         self.__decimals = None
@@ -35,6 +42,13 @@ class Contract():
         self.__symbol = self.function("symbol")
         self.__name = self.function("name")
         self.__totalSupply = self.function("totalSupply")
+        self.__code = self.__connection.w3.eth.getCode(self.__address)
+
+    @property
+    def code(self):
+        if self.__code == None:
+            self.__code = self.__connection.w3.eth.getCode(self.__address)
+        return self.__code
 
     @property
     def totalSupply(self):
@@ -67,6 +81,26 @@ class Contract():
     @property
     def abi(self):
         return self.__abi
+
+    @property
+    def source(self):
+        return self.__source
+    @source.setter
+    def source(self,val):
+        compiled = compile_source(val)
+        compiled_interface = compiled["<stdin>:{}".format(self.name)]
+        compiled_code = compiled_interface["bin"]
+        if compiled_code != self.code:
+            raise ValueError("Compiled source code does not match blockchain version")
+        self.__source = compiled_code
+        self.__code = compiled_interface
+
+    @property
+    def bin(self):
+        if self.__code == None:
+            return None
+        return self.__code["bin"]
+
 
     def balanceOf(self, address):
         if not Web3.isAddress(address):

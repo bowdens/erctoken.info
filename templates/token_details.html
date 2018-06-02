@@ -1,13 +1,17 @@
-{% if token %}
+{% if error %}
+<p style="color:red">There was an error: {{error}}</p>
+{% else %}
 <table>
     <tr>
-        <td>{{token.name}} ({{token.symbol}})</td>
+        {% if name or symbol %}
+        <td>{{name}} {{symbol}}</td>
+        {% endif %}
     </tr>
+    {% if totalSupply and decimals %}
     <tr>
         <td>Total Supply</td>
-        <td>{{token.totalSupply / (10**token.decimals)}} {{token.symbol}}</td>
+        <td>{{totalSupply / (10**decimals)}} {{symbol}}</td>
     </tr>
+    {% endif %}
 </table>
-{% else %}
-Token not found.
 {% endif %}

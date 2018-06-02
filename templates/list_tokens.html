@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Token List
+{% endblock %}
+
+{% block body %}
+{% if tokens %}
+<ul style="list-style-type:none">
+    {% for token in tokens %}
+    <li><a href="{{token['address']}}">{{token['name']}}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no tokens recorded in the system!</p>
+{% endif %}
+{% endblock %}
+

@@ -21,6 +21,10 @@ f = open("bdc.abi")
 bdcabi = f.read().rstrip()
 f.close()
 
+f = open("default.abi")
+defaultABI = f.read().rstrip()
+f.close()
+
 bdcaddress = "0x8b84715c41bfb75f8E8CE47447180450758332b3"
 
 system = System()
